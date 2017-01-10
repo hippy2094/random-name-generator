@@ -10,6 +10,14 @@ and surnames.txt to be in the same directory.
 
 The name parts were taken from http://homepage.net/name_generator/
 
+Building
+
+After installing FreePascal, simply run the following command to build:
+
+# fpc createnameslist.pas
+
+Then execute the created createnameslist[.exe] binary.
+
 Example output (TOTALCOUNT = 3):
 
 <?xml version="1.0" encoding="UTF-8" ?>
