@@ -18,10 +18,33 @@ var
   starttime, endtime: TDateTime;
   runtime: String;
 begin
+  writeln('Random name generator');
+  writeln('(c) 2017 Matthew Hipkin <http://www.matthewhipkin.co.uk');
+  writeln;
   firstnames := TStringList.Create;
+  if not FileExists('firstnames.txt') then
+  begin
+    writeln('FATAL: Cannot find firstnames.txt!');
+    exit;
+  end;
   firstnames.LoadFromFile('firstnames.txt');
+  if firstnames.Count = 0 then
+  begin
+    writeln('FATAL: No first names found!');
+    exit;
+  end;
   surnames := TStringList.Create;
+  if not FileExists('surnames.txt') then
+  begin
+    writeln('FATAL: Cannot find surnames.txt!');
+    exit;
+  end;
   surnames.LoadFromFile('surnames.txt');
+  if surnames.Count = 0 then
+  begin
+    writeln('FATAL: No surnames found!');
+    exit;
+  end;
   AssignFile(fo,'namelist.xml');
   Rewrite(fo);
   Writeln(fo,'<?xml version="1.0" encoding="UTF-8" ?>');
