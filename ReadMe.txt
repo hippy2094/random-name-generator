@@ -9,3 +9,25 @@ Requires fpc <http://www.frepascal.org> to build and for both firstnames.txt
 and surnames.txt to be in the same directory.
 
 The name parts were taken from http://homepage.net/name_generator/
+
+Example output (TOTALCOUNT = 3):
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<people>
+  <person>
+    <firstname>Leonard</firstname>
+    <surname>Walker</surname>
+    <age>68</age>
+  </person>
+  <person>
+    <firstname>Lisa</firstname>
+    <surname>Paterson</surname>
+    <age>51</age>
+  </person>
+  <person>
+    <firstname>Christopher</firstname>
+    <surname>Harris</surname>
+    <age>7</age>
+  </person>
+</people>
+
