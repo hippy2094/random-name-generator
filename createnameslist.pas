@@ -7,7 +7,8 @@ uses Classes, SysUtils, StrUtils, DateUtils;
 procedure main;
 const
   TAB = #9;
-  TOTALCOUNT = 100000;
+  DEFAULTCOUNT = 10;
+  APPVER = '0.1.1';
 var
   fo: TextFile;
   age: Byte;
@@ -17,10 +18,18 @@ var
   i,rf,rs: Integer;
   starttime, endtime: TDateTime;
   runtime: String;
-begin
-  writeln('Random name generator');
-  writeln('(c) 2017 Matthew Hipkin <http://www.matthewhipkin.co.uk');
+  TotalCount: Integer;
+begin  
+  writeln('Random name generator ',APPVER);
+  writeln('(c) 2017 Matthew Hipkin <http://www.matthewhipkin.co.uk>');
   writeln;
+  if ParamCount = 0 then
+  begin
+    writeln('USAGE: createnameslist <number_of_names>');
+    writeln('Defaulting to 10 names');
+    writeln;
+  end;
+  TotalCount := StrToIntDef(ParamStr(1),DEFAULTCOUNT);    
   firstnames := TStringList.Create;
   if not FileExists('firstnames.txt') then
   begin
@@ -63,7 +72,7 @@ begin
     Writeln(fo,'    <age>', age, '</age>');
     Writeln(fo,'  </person>');
     inc(i);
-  until i = TOTALCOUNT;
+  until i = TotalCount;
   Writeln(fo,'</people>');
   endtime := Now;
   CloseFile(fo);
