@@ -16,9 +16,12 @@ After installing FreePascal, simply run the following command to build:
 
 # fpc createnameslist.pas
 
-Then execute the created createnameslist[.exe] binary.
+Then execute the created createnameslist[.exe] binary, optionally specifying
+the number of names to be generated:
 
-Example output (TOTALCOUNT = 3):
+# ./createnameslist 3
+
+Example output:
 
 <?xml version="1.0" encoding="UTF-8" ?>
 <people>
