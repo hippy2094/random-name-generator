@@ -175,16 +175,27 @@ end;
 
 function GenerateRandomEmail(f: String; s: String): String;
 var
-  i: Integer;
+  i,j: Integer;
   front, domain: String;
   domains: TStrings;
+  suf: TStrings;
 begin
   domains := TStringList.Create;
   domains.Add('outlook.com');
   domains.Add('gmail.com');
   domains.Add('yahoo.com');
   domains.Add('hotmail.com');
-  i := Random(1000);
+  domains.Add('aol.com');
+  suf := TStringList.Create;
+  suf.Add('.com');
+  suf.Add('.net');
+  suf.Add('.org');  
+  suf.Add('.co.uk');  
+  suf.Add('.de');  
+  suf.Add('.fr');  
+  suf.Add('.ca');  
+  suf.Add('.io');  
+  i := Random(1500);
   if i <= 333 then
   begin
     front := f[1] + s;
@@ -193,13 +204,26 @@ begin
   begin
     front := f + '.' + s;
   end;
-  if i > 666 then
+  if (i > 666) and (i < 1000) then
   begin
     front := f + s[1];
   end;
-  i := Random(domains.Count);
-  domain := domains[i];
-  Result := front + '@' + domain;
+  if i >= 1000 then
+  begin
+    front := f;
+    j := Random(600);
+    if j < 200 then domain := f + s;
+    if (j >= 200) and (j < 400) then domain := f + '-' + s;
+    if j >= 400 then domain := s; 
+    j := Random(suf.Count);
+    domain := domain + suf[j];
+  end;
+  if i < 1000 then
+  begin
+    i := Random(domains.Count);
+    domain := domains[i];
+  end;
+  Result := Lowercase(front) + '@' + Lowercase(domain);
   domains.Free;
 end;
 
