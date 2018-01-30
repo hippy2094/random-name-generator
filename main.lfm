@@ -1,0 +1,101 @@
+object frmMain: TfrmMain
+  Left = 283
+  Height = 199
+  Top = 250
+  Width = 267
+  Caption = 'frmMain'
+  ClientHeight = 199
+  ClientWidth = 267
+  OnCreate = FormCreate
+  object listOutput: TComboBox
+    Left = 8
+    Height = 23
+    Top = 24
+    Width = 100
+    ItemHeight = 15
+    Items.Strings = (
+      'XML'
+      'CSV'
+      'HTML table'
+    )
+    TabOrder = 0
+    Text = 'listOutput'
+  end
+  object textCount: TSpinEdit
+    Left = 136
+    Height = 23
+    Top = 24
+    Width = 106
+    TabOrder = 1
+    Value = 10
+  end
+  object textOutputFilename: TFileNameEdit
+    Left = 8
+    Height = 23
+    Top = 104
+    Width = 250
+    FileName = 'textOutputFilename'
+    FilterIndex = 0
+    HideDirectories = False
+    ButtonWidth = 23
+    NumGlyphs = 1
+    MaxLength = 0
+    TabOrder = 2
+    Text = 'textOutputFilename'
+  end
+  object checkAge: TCheckBox
+    Left = 8
+    Height = 19
+    Top = 56
+    Width = 107
+    Caption = 'Include age field'
+    TabOrder = 3
+  end
+  object checkEmail: TCheckBox
+    Left = 136
+    Height = 19
+    Top = 56
+    Width = 117
+    Caption = 'Include email field'
+    TabOrder = 4
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 15
+    Top = 88
+    Width = 57
+    Caption = 'Output file'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 8
+    Height = 15
+    Top = 7
+    Width = 77
+    Caption = 'Output format'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 136
+    Height = 15
+    Top = 8
+    Width = 96
+    Caption = 'Number of names'
+    ParentColor = False
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 176
+    Width = 267
+    Panels = <>
+  end
+  object btnGo: TButton
+    Left = 183
+    Height = 25
+    Top = 144
+    Width = 75
+    Caption = 'Generate'
+    TabOrder = 6
+  end
+end
