@@ -5,7 +5,7 @@ unit main;
 interface
 
 uses
-  {$IFDEF WINDOWS}Windows,{$ENDIF}SysUtils, Classes, fpg_base, 
+  {$IFDEF WINDOWS}Windows,{$ENDIF}SysUtils, Classes, fpg_base, process,
   fpg_main,  fpg_form, fpg_button, fpg_radiobutton, fpg_edit, fpg_dialogs, 
   fpg_label, fpg_checkbox, fpg_combobox, fpg_gauge;
 
