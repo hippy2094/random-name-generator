@@ -102,6 +102,7 @@ procedure TfrmMain.FormCreate(Sender: TObject);
 var
   AppDataPath: Array[0..MaxPathLen] of Char;
 begin
+  Randomize;
   AppDataPath:='';
   SHGetSpecialFolderPath(0,AppDataPath,CSIDL_DESKTOPDIRECTORY,false);
   textOutputFilename.InitialDir := AppDataPath;
@@ -177,8 +178,8 @@ begin
   end;
   if listOutput.ItemIndex = 3 then
   begin
-    if ExtractFileExt(textOutputFilename.Text) <> '.json' then
-      textOutputFilename.Text := textOutputFilename.Text + '.json';
+    if ExtractFileExt(textOutputFilename.Text) <> '.sql' then
+      textOutputFilename.Text := textOutputFilename.Text + '.sql';
   end;
   // Begin
   SetControlsEnabled(false);
@@ -211,6 +212,16 @@ begin
     if checkAge.Checked then writeln(fo,'      <th>Age</th>');
     if checkEmail.Checked then writeln(fo,'      <th>E-mail</th>');
     writeln(fo,'    </tr>');
+  end;
+  if listOutput.ItemIndex = 3 then
+  begin
+    s := 'CREATE TABLE `people` (`id` INT(11), `firstname` VARCHAR(25), ';
+    s := s + '`surname` VARCHAR(25)';
+    if checkAge.Checked then s := s + ', `age` INT(3)';
+    if checkAge.Checked then s := s + ', `email` VARCHAR(50)';
+    s := s + ');';
+    writeln(fo,s);
+    writeln(fo,'');
   end;
   i := 0;
   starttime := Now;
@@ -246,6 +257,20 @@ begin
       if checkAge.Checked then writeln(fo,'      <td>',age,'</td>');
       if checkEmail.Checked then writeln(fo,'      <td>',email,'</td>');
       writeln(fo,'    </tr>');
+    end;
+    if listOutput.ItemIndex = 3 then
+    begin
+      s := 'INSERT INTO `people` (`id`,`firstname`,`surname`';
+      if checkAge.Checked then s := s + ',`age`';
+      if checkEmail.Checked then s := s + ',`email`';
+      s := s + ') VALUES (';
+      s := s + IntToStr(i+1) + ',';
+      s := s + '''' + firstname + ''',';
+      s := s + '''' + surname + '''';
+      if checkAge.Checked then s := s + ',' + IntToStr(age);
+      if checkEmail.Checked then s := s + ',''' + email + '''';
+      s := s + ');';
+      writeln(fo,s);
     end;
     inc(i);
   until i = TotalCount;

@@ -3,7 +3,7 @@ Random Name List Generator
 
 Creates a file containing a list of random names (aswell as optional random
 ages and email addresses) up to a total of 5 million items. Can output list as: 
-XML, CSV or a HTML table.
+XML, CSV, SQL or a HTML table.
 
 Requires both firstnames.txt and surnames.txt to be in the same directory.
 

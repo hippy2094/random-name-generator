@@ -17,6 +17,7 @@ object frmMain: TfrmMain
       'XML'
       'CSV'
       'HTML table'
+      'MySQL dump'
     )
     Style = csDropDownList
     TabOrder = 0
