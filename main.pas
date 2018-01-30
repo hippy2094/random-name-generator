@@ -506,7 +506,7 @@ begin
   begin
     Writeln(fo,'</people>');
   end;
-  if listOutput.FocusItem = 1 then
+  if listOutput.FocusItem = 2 then
   begin
     writeln(fo,'  </table>');  
     writeln(fo,'</body>');    
