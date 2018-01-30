@@ -231,7 +231,7 @@ begin
     Items.Add('XML');
     Items.Add('CSV');
     Items.Add('HTML table');
-    Items.Add('JSON');
+    //Items.Add('JSON');
     FocusItem := 0;
     TabOrder := 1;
   end;
