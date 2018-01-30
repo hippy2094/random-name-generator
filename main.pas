@@ -106,6 +106,8 @@ begin
   SHGetSpecialFolderPath(0,AppDataPath,CSIDL_DESKTOPDIRECTORY,false);
   textOutputFilename.InitialDir := AppDataPath;
   textOutputFilename.Text := '';
+  frmMain.Caption := 'Random Name List Generator';
+  Application.Title := frmMain.Caption;
 end;
 
 procedure TfrmMain.Label5Click(Sender: TObject);

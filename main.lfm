@@ -104,8 +104,8 @@ object frmMain: TfrmMain
     Left = 8
     Height = 15
     Top = 144
-    Width = 135
-    Caption = 'Random Name Generator'
+    Width = 156
+    Caption = 'Random Name List Generator'
     ParentColor = False
   end
   object Label5: TLabel
