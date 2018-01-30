@@ -1,11 +1,11 @@
 object frmMain: TfrmMain
   Left = 283
-  Height = 199
+  Height = 210
   Top = 250
-  Width = 267
+  Width = 289
   Caption = 'frmMain'
-  ClientHeight = 199
-  ClientWidth = 267
+  ClientHeight = 210
+  ClientWidth = 289
   OnCreate = FormCreate
   object listOutput: TComboBox
     Left = 8
@@ -18,14 +18,15 @@ object frmMain: TfrmMain
       'CSV'
       'HTML table'
     )
+    Style = csDropDownList
     TabOrder = 0
-    Text = 'listOutput'
   end
   object textCount: TSpinEdit
     Left = 136
     Height = 23
     Top = 24
     Width = 106
+    MaxValue = 5000000
     TabOrder = 1
     Value = 10
   end
@@ -33,7 +34,7 @@ object frmMain: TfrmMain
     Left = 8
     Height = 23
     Top = 104
-    Width = 250
+    Width = 272
     FileName = 'textOutputFilename'
     FilterIndex = 0
     HideDirectories = False
@@ -86,16 +87,38 @@ object frmMain: TfrmMain
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23
-    Top = 176
-    Width = 267
+    Top = 187
+    Width = 289
     Panels = <>
   end
   object btnGo: TButton
-    Left = 183
+    Left = 208
     Height = 25
     Top = 144
     Width = 75
     Caption = 'Generate'
+    OnClick = btnGoClick
     TabOrder = 6
+  end
+  object Label4: TLabel
+    Left = 8
+    Height = 15
+    Top = 144
+    Width = 135
+    Caption = 'Random Name Generator'
+    ParentColor = False
+  end
+  object Label5: TLabel
+    Cursor = crHandPoint
+    Left = 8
+    Height = 15
+    Top = 160
+    Width = 182
+    Caption = 'https://www.matthewhipkin.co.uk'
+    Font.Color = clRed
+    Font.Style = [fsUnderline]
+    ParentColor = False
+    ParentFont = False
+    OnClick = Label5Click
   end
 end
