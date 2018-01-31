@@ -10,10 +10,10 @@ object frmMain: TfrmMain
   LCLVersion = '1.9.0.0'
   object listOutput: TComboBox
     Left = 8
-    Height = 29
+    Height = 23
     Top = 24
     Width = 100
-    ItemHeight = 0
+    ItemHeight = 15
     Items.Strings = (
       'XML'
       'CSV'
@@ -25,7 +25,7 @@ object frmMain: TfrmMain
   end
   object textCount: TSpinEdit
     Left = 144
-    Height = 33
+    Height = 23
     Top = 23
     Width = 106
     MaxValue = 5000000
@@ -34,7 +34,7 @@ object frmMain: TfrmMain
   end
   object textOutputFilename: TFileNameEdit
     Left = 8
-    Height = 33
+    Height = 23
     Top = 104
     Width = 272
     FileName = 'textOutputFilename'
@@ -48,48 +48,48 @@ object frmMain: TfrmMain
   end
   object checkAge: TCheckBox
     Left = 8
-    Height = 24
+    Height = 19
     Top = 56
-    Width = 133
+    Width = 107
     Caption = 'Include age field'
     TabOrder = 3
   end
   object checkEmail: TCheckBox
     Left = 144
-    Height = 24
+    Height = 19
     Top = 56
-    Width = 146
+    Width = 117
     Caption = 'Include email field'
     TabOrder = 4
   end
   object Label1: TLabel
     Left = 8
-    Height = 17
+    Height = 15
     Top = 88
-    Width = 68
+    Width = 57
     Caption = 'Output file'
     ParentColor = False
   end
   object Label2: TLabel
     Left = 8
-    Height = 17
+    Height = 15
     Top = 7
-    Width = 92
+    Width = 77
     Caption = 'Output format'
     ParentColor = False
   end
   object Label3: TLabel
     Left = 144
-    Height = 17
+    Height = 15
     Top = 7
-    Width = 117
+    Width = 96
     Caption = 'Number of names'
     ParentColor = False
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 19
-    Top = 191
+    Height = 23
+    Top = 187
     Width = 315
     Panels = <>
   end
@@ -104,18 +104,18 @@ object frmMain: TfrmMain
   end
   object Label4: TLabel
     Left = 8
-    Height = 17
+    Height = 15
     Top = 144
-    Width = 193
+    Width = 156
     Caption = 'Random Name List Generator'
     ParentColor = False
   end
   object Label5: TLabel
     Cursor = crHandPoint
     Left = 8
-    Height = 17
+    Height = 15
     Top = 160
-    Width = 218
+    Width = 182
     Caption = 'https://www.matthewhipkin.co.uk'
     Font.Color = clRed
     Font.Style = [fsUnderline]

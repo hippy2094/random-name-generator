@@ -164,6 +164,11 @@ begin
     messagedlg('No surnames found!',mtError, [mbOK], 0);
     exit;
   end;
+  if FileExists(textOutputFilename.Text) then
+  begin
+    if messagedlg('Output file already exists, overwrite?',mtConfirmation, mbOKCancel, 0)  = mrCancel then
+      exit;
+  end;
   // Parse output filename
   if listOutput.ItemIndex = 0 then
   begin
