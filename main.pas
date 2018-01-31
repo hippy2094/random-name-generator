@@ -5,8 +5,8 @@ unit main;
 interface
 
 uses
-  Windows, shlobj, Classes, SysUtils, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, Spin, EditBtn, ComCtrls, Buttons, LCLIntf;
+  {$IFDEF WINDOWS}Windows, shlobj,{$ENDIF} Classes, SysUtils, Forms, Controls,
+  Graphics, Dialogs, StdCtrls, Spin, EditBtn, ComCtrls, Buttons, LCLIntf;
 
 type
 
@@ -99,13 +99,17 @@ end;
 { TfrmMain }
 
 procedure TfrmMain.FormCreate(Sender: TObject);
+{$IFDEF WINDOWS}
 var
   AppDataPath: Array[0..MaxPathLen] of Char;
+{$ENDIF}
 begin
   Randomize;
+{$IFDEF WINDOWS}
   AppDataPath:='';
   SHGetSpecialFolderPath(0,AppDataPath,CSIDL_DESKTOPDIRECTORY,false);
   textOutputFilename.InitialDir := AppDataPath;
+{$ENDIF}
   textOutputFilename.Text := '';
   frmMain.Caption := 'Random Name List Generator';
   Application.Title := frmMain.Caption;
