@@ -131,7 +131,8 @@ object frmMain: TfrmMain
     ParentColor = False
   end
   object Label7: TLabel
-    Left = 152
+    Cursor = crHandPoint
+    Left = 144
     Height = 15
     Top = 184
     Width = 213

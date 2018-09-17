@@ -121,6 +121,7 @@ var
   starttime, endtime: TDateTime;
   s: String;
 begin
+  FTotal := Options.TotalNames;
   firstnames := TStringList.Create;
   {$I firstnames.inc }
   surnames := TStringList.Create;
@@ -230,6 +231,7 @@ begin
   DateTimeToString(FRunTime,'HH:nn:ss.zzz',(endtime-starttime));
   firstnames.Free;
   surnames.Free;
+  Synchronize(@GenerationComplete);
 end;
 
 procedure TGNThread.UpdateCount;

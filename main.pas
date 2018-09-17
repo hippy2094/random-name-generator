@@ -33,7 +33,10 @@ type
     procedure Label5Click(Sender: TObject);
     procedure Label7Click(Sender: TObject);
   private
+    WorkThread: TGNThread;
     procedure SetControlsEnabled(b: Boolean);
+    procedure NameCountUpdate(c: Integer);
+    procedure NamesGenerateComplete(Runtime: String);
   public
 
   end;
@@ -76,48 +79,8 @@ end;
 
 procedure TfrmMain.btnGoClick(Sender: TObject);
 var
-  fo: TextFile;
-  age: Byte;
-  firstname, surname, email: String;
-  firstnames: TStrings;
-  surnames: TStrings;
-  i,rf,rs: Integer;
-  starttime, endtime: TDateTime;
-  runtime: String;
-  TotalCount: Integer;
-  s: String;
+  Options: TGNConfig;
 begin
-  if textOutputFilename.FileName = '' then
-  begin
-    messagedlg('No output file specified!',mtError, [mbOK], 0);
-    exit;
-  end;
-  TotalCount := textCount.Value;
-  firstnames := TStringList.Create;
-  // Check inputs exist
-  if not FileExists('firstnames.txt') then
-  begin
-    messagedlg('Cannot find firstnames.txt!',mtError, [mbOK], 0);
-    exit;
-  end;
-  firstnames.LoadFromFile('firstnames.txt');
-  if firstnames.Count = 0 then
-  begin
-    messagedlg('No first names found!',mtError, [mbOK], 0);
-    exit;
-  end;
-  surnames := TStringList.Create;
-  if not FileExists('surnames.txt') then
-  begin
-    messagedlg('Cannot find surnames.txt!',mtError, [mbOK], 0);
-    exit;
-  end;
-  surnames.LoadFromFile('surnames.txt');
-  if surnames.Count = 0 then
-  begin
-    messagedlg('No surnames found!',mtError, [mbOK], 0);
-    exit;
-  end;
   if FileExists(textOutputFilename.Text) then
   begin
     if messagedlg('Output file already exists, overwrite?',mtConfirmation, mbOKCancel, 0)  = mrCancel then
@@ -145,116 +108,23 @@ begin
       textOutputFilename.Text := textOutputFilename.Text + '.sql';
   end;
   // Begin
+  Options.IncludeAge := checkAge.Checked;
+  Options.IncludeEmail := checkEmail.Checked;
+  Options.OutputFileName := textOutputFilename.Text;
+  Options.TotalNames := textCount.Value;
+  case listOutput.ItemIndex of
+    0: Options.OutputType := ofXML;
+    1: Options.OutputType := ofCSV;
+    2: Options.OutputType := ofHTML;
+    3: Options.OutputType := ofSQL;
+  end;
+  WorkThread := TGNThread.Create(true);
+  WorkThread.Options := Options;
+  WorkThread.FreeOnTerminate := true;
+  WorkThread.OnRunComplete := NamesGenerateComplete;
   SetControlsEnabled(false);
   StatusBar1.SimpleText := 'Please wait..';
-  AssignFile(fo,textOutputFilename.Text);
-  Rewrite(fo);
-  if listOutput.ItemIndex = 0 then
-  begin
-    Writeln(fo,'<?xml version="1.0" encoding="UTF-8" ?>');
-    Writeln(fo,'<people>');
-  end;
-  if listOutput.ItemIndex = 1 then
-  begin
-    s := 'first_name,surname';
-    if checkAge.Checked then s := s + ',age';
-    if checkEmail.Checked then s := s + ',email';
-    writeln(fo,s);
-  end;
-  if listOutput.ItemIndex = 2 then
-  begin
-    writeln(fo,'<html>');
-    writeln(fo,'<head>');
-    writeln(fo,'  <title>List of ',TotalCount,' names</title>');
-    writeln(fo,'</head>');
-    writeln(fo,'<body>');
-    writeln(fo,'  <table>');
-    writeln(fo,'    <tr>');
-    writeln(fo,'      <th>First name</th>');
-    writeln(fo,'      <th>Surname</th>');
-    if checkAge.Checked then writeln(fo,'      <th>Age</th>');
-    if checkEmail.Checked then writeln(fo,'      <th>E-mail</th>');
-    writeln(fo,'    </tr>');
-  end;
-  if listOutput.ItemIndex = 3 then
-  begin
-    s := 'CREATE TABLE `people` (`id` INT(11), `firstname` VARCHAR(25), ';
-    s := s + '`surname` VARCHAR(25)';
-    if checkAge.Checked then s := s + ', `age` INT(3)';
-    if checkAge.Checked then s := s + ', `email` VARCHAR(50)';
-    s := s + ');';
-    writeln(fo,s);
-    writeln(fo,'');
-  end;
-  i := 0;
-  starttime := Now;
-  repeat
-    Application.ProcessMessages;
-    rf := Random(firstnames.Count);
-    rs := Random(surnames.Count);
-    firstname := firstnames[rf];
-    surname := surnames[rs];
-    if checkAge.Checked then age := Random(100);
-    if checkEmail.Checked then email := GenerateRandomEmail(firstname, surname);
-    if listOutput.ItemIndex = 0 then
-    begin
-      Writeln(fo,'  <person>');
-      Writeln(fo,'    <firstname>', firstname, '</firstname>');
-      Writeln(fo,'    <surname>', surname, '</surname>');
-      if checkAge.Checked then Writeln(fo,'    <age>', age, '</age>');
-      if checkEmail.Checked then Writeln(fo,'    <email>', email, '</email>');
-      Writeln(fo,'  </person>');
-    end;
-    if listOutput.ItemIndex = 1 then
-    begin
-      s := firstname + ',' + surname;
-      if checkAge.Checked then s := s + ',' + IntToStr(age);
-      if checkEmail.Checked then s := s + ',' + email;
-      Writeln(fo,s);
-    end;
-    if listOutput.ItemIndex = 2 then
-    begin
-      writeln(fo,'    <tr>');
-      writeln(fo,'      <td>',firstname,'</td>');
-      writeln(fo,'      <td>',surname,'</td>');
-      if checkAge.Checked then writeln(fo,'      <td>',age,'</td>');
-      if checkEmail.Checked then writeln(fo,'      <td>',email,'</td>');
-      writeln(fo,'    </tr>');
-    end;
-    if listOutput.ItemIndex = 3 then
-    begin
-      s := 'INSERT INTO `people` (`id`,`firstname`,`surname`';
-      if checkAge.Checked then s := s + ',`age`';
-      if checkEmail.Checked then s := s + ',`email`';
-      s := s + ') VALUES (';
-      s := s + IntToStr(i+1) + ',';
-      s := s + '''' + firstname + ''',';
-      s := s + '''' + surname + '''';
-      if checkAge.Checked then s := s + ',' + IntToStr(age);
-      if checkEmail.Checked then s := s + ',''' + email + '''';
-      s := s + ');';
-      writeln(fo,s);
-    end;
-    inc(i);
-  until i = TotalCount;
-  if listOutput.ItemIndex = 0 then
-  begin
-    Writeln(fo,'</people>');
-  end;
-  if listOutput.ItemIndex = 2 then
-  begin
-    writeln(fo,'  </table>');
-    writeln(fo,'</body>');
-    writeln(fo,'</html>');
-  end;
-  endtime := Now;
-  CloseFile(fo);
-  firstnames.Free;
-  DateTimeToString(runtime,'HH:nn:ss.zzz',(endtime-starttime));
-  StatusBar1.SimpleText := IntToStr(i) + ' names generated in ' + runtime;
-  showmessage('Done');
-  SetControlsEnabled(true);
-  surnames.Free;
+  WorkThread.Start;
 end;
 
 procedure TfrmMain.SetControlsEnabled(b: Boolean);
@@ -268,6 +138,18 @@ begin
   Label2.Enabled := b;
   Label3.Enabled := b;
   btnGo.Enabled := b;
+end;
+
+procedure TfrmMain.NameCountUpdate(c: Integer);
+begin
+  StatusBar1.SimpleText := IntToStr(c) + ' names generated';
+end;
+
+procedure TfrmMain.NamesGenerateComplete(Runtime: String);
+begin
+  StatusBar1.SimpleText := IntToStr(textCount.Value) + ' names generated in ' + Runtime;
+  showmessage('Done');
+  SetControlsEnabled(true);
 end;
 
 end.
