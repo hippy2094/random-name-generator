@@ -18,6 +18,8 @@ type
     checkEmail: TCheckBox;
     Label4: TLabel;
     Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
     listOutput: TComboBox;
     textOutputFilename: TFileNameEdit;
     Label1: TLabel;
@@ -28,6 +30,7 @@ type
     procedure btnGoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Label5Click(Sender: TObject);
+    procedure Label7Click(Sender: TObject);
   private
     procedure SetControlsEnabled(b: Boolean);
   public
@@ -118,6 +121,11 @@ end;
 procedure TfrmMain.Label5Click(Sender: TObject);
 begin
   OpenURL(Label5.Caption);
+end;
+
+procedure TfrmMain.Label7Click(Sender: TObject);
+begin
+  OpenURL('https://homepage.net/name_generator/');
 end;
 
 procedure TfrmMain.btnGoClick(Sender: TObject);

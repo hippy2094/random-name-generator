@@ -1,13 +1,12 @@
 object frmMain: TfrmMain
   Left = 283
-  Height = 210
+  Height = 232
   Top = 250
-  Width = 315
+  Width = 384
   Caption = 'frmMain'
-  ClientHeight = 210
-  ClientWidth = 315
+  ClientHeight = 232
+  ClientWidth = 384
   OnCreate = FormCreate
-  LCLVersion = '1.9.0.0'
   object listOutput: TComboBox
     Left = 8
     Height = 23
@@ -36,7 +35,7 @@ object frmMain: TfrmMain
     Left = 8
     Height = 23
     Top = 104
-    Width = 272
+    Width = 371
     FileName = 'textOutputFilename'
     FilterIndex = 0
     HideDirectories = False
@@ -89,12 +88,12 @@ object frmMain: TfrmMain
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23
-    Top = 187
-    Width = 315
+    Top = 209
+    Width = 384
     Panels = <>
   end
   object btnGo: TButton
-    Left = 232
+    Left = 304
     Height = 25
     Top = 144
     Width = 75
@@ -122,5 +121,25 @@ object frmMain: TfrmMain
     ParentColor = False
     ParentFont = False
     OnClick = Label5Click
+  end
+  object Label6: TLabel
+    Left = 8
+    Height = 15
+    Top = 184
+    Width = 131
+    Caption = 'List of names taken from'
+    ParentColor = False
+  end
+  object Label7: TLabel
+    Left = 152
+    Height = 15
+    Top = 184
+    Width = 213
+    Caption = 'https://homepage.net/name_generator/'
+    Font.Color = clRed
+    Font.Style = [fsUnderline]
+    ParentColor = False
+    ParentFont = False
+    OnClick = Label7Click
   end
 end
